@@ -38,38 +38,41 @@ class NBA(object):
         self.players_df = players_df
         return players_df
 
-    def shots(self, PlayerID='2544'):
+    def shots(self, PlayerID='2544', Season='2017-18'):
         endpoint = 'shotchartdetail'
-        shots_data = self.get_data(endpoint=endpoint, payload = payload2, PlayerID = PlayerID)
+        shots_data = self.get_data(endpoint=endpoint, payload = payload2, PlayerID = PlayerID,Season=Season)
         shots_df = self.to_df(shots_data)
         return shots_df
 
-    def save_all_shots(self):
+    def save_shots(self, Season='2017-18'):
         if self.players_df is None:
             self.players()
 
-        for PlayerID in np.unique(self.players_df['PLAYER_ID']):
-            time.sleep(3)
-            shots = self.shots(PlayerID = PlayerID)
-            self.save_csv(shots, '{0}.csv'.format(PlayerID))
-
-    def merge_shots(self):
         final= pd.DataFrame()
-        if self.players_df is None:
-            self.players()
-
         for PlayerID in np.unique(self.players_df['PLAYER_ID']):
-            shot = pd.read_csv(str(PlayerID))
-            shot['player_id'] = PlayerID
-            final = pd.concat([final, shot], axis=0)
+            time.sleep(2)
+            shots = self.shots(PlayerID = PlayerID, Season=Season)
+            final = pd.concat([final, shots], axis=0)
 
-        self.save_csv(final, 'shots.csv'.format(PlayerID))
-        return True
+        self.save_csv(final, 'shots_{0}.csv'.format(Season))
+    #
+    # def merge_shots(self):
+    #
+    #     if self.players_df is None:
+    #         self.players()
+    #
+    #     for PlayerID in np.unique(self.players_df['PLAYER_ID']):
+    #         shot = pd.read_csv(str(PlayerID))
+    #         shot['player_id'] = PlayerID
+    #         final = pd.concat([final, shot], axis=0)
+    #
+    #     self.save_csv(final, 'shots.csv'.format(PlayerID))
+    #     return True
 
 
 if __name__ == '__main__':
     nba = NBA()
     #james_shots = nba.shots(PlayerID='2544')
     #print (james_shots.head())
-    #nba.save_all_shots()
+    nba.save_shots('2013-14')
     #nba.merge_shots()
