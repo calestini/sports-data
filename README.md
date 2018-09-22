@@ -1,1 +1,3 @@
-# nba-data
+# sports-data
+
+Repository for sports data

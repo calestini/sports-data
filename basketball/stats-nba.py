@@ -55,24 +55,10 @@ class NBA(object):
             final = pd.concat([final, shots], axis=0)
 
         self.save_csv(final, 'shots_{0}.csv'.format(Season))
-    #
-    # def merge_shots(self):
-    #
-    #     if self.players_df is None:
-    #         self.players()
-    #
-    #     for PlayerID in np.unique(self.players_df['PLAYER_ID']):
-    #         shot = pd.read_csv(str(PlayerID))
-    #         shot['player_id'] = PlayerID
-    #         final = pd.concat([final, shot], axis=0)
-    #
-    #     self.save_csv(final, 'shots.csv'.format(PlayerID))
-    #     return True
-
 
 if __name__ == '__main__':
     nba = NBA()
     #james_shots = nba.shots(PlayerID='2544')
     #print (james_shots.head())
-    nba.save_shots('2013-14')
+    nba.save_shots('2011-12')
     #nba.merge_shots()
