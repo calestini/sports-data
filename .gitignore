@@ -8,3 +8,8 @@
 *.ipynb_checkpoints
 __pycache__
 *__pycache__
+*.jpg
+*/.jpg
+*.png
+*/.png
+headshot
