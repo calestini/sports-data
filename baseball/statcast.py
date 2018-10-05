@@ -25,7 +25,7 @@ class statsApi(object):
 
     def standings(self, year=2018):
         """
-        Standings Json Hierarchy (working until 1993):
+        Standings Json Hierarchy (working from 1993 on):
         ['records'][division_index(0-6)]
                         --> ['standingsType']
                         --> ['division'][division_cols]
@@ -242,7 +242,7 @@ class Statcast(object):
 		#2016: April 3 - Oct 2
 		#2017: April 2 - Oct 3
 
-		self.season = {'start_dt': datetime.date(2015,4,5), 'end_dt': datetime.date(2015,10,4)}
+		self.season = {'start_dt': datetime.date(2018,3,29), 'end_dt': datetime.date(2018,10,1)}
 
 	def get_data(self, start_dt, end_dt):
 
@@ -284,11 +284,11 @@ class Statcast(object):
 			pitches = self.get_data(temp_start, temp_end)
 			results = pd.concat([results, pitches], axis = 0)
 			print (loop,temp_start, temp_end, len(results))
-		results.to_csv('pitches_2015.csv', index=False)
+		results.to_csv('pitches_2018.csv', index=False)
 
 if __name__ == '__main__':
 	pitches = Statcast()
-	#pdf = pitches.get_season_pitches()
+	pitches.get_season_pitches()
 	#for year in range(2005,2017,1):
-	pitches.save_players(2018)
+	#pitches.save_players(2018)
 	#print (pdf.head())
